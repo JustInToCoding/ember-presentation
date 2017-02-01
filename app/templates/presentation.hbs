@@ -1,0 +1,23 @@
+{{#if slideNumber}}
+  {{#if hasCurrentSlideComponent}}
+    {{#if previousSlide}}
+      {{#link-to "presentation" (query-params slide=previousSlide)}}
+        Previous
+      {{/link-to}}
+    {{/if}}
+
+    {{component currentSlideComponent}}
+
+    {{#if nextSlide}}
+      {{#link-to "presentation" (query-params slide=nextSlide)}}
+        Next
+      {{/link-to}}
+    {{/if}}
+
+
+  {{else}}
+    Slide not found.
+  {{/if}}
+{{else}}
+  {{component 'start-presentation' startSlide=nextSlide}}
+{{/if}}
