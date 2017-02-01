@@ -6,10 +6,10 @@ const { Controller, observer, getOwner } = Ember;
 export default Controller.extend({
   queryParams: ['slide'],
   slide: null,
+  startSlide: 1,
 
   slideQueryParamChanged: observer('slide', function() {
     let slide = parseInt(this.get('slide'));
-    debugger;
     this.set('slideNumber', slide);
 
     let owner = getOwner(this);
