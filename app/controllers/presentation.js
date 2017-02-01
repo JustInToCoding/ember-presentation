@@ -1,14 +1,15 @@
 import Ember from 'ember';
 import hasComponent from '../utils/has-component';
 
-const { Controller, observer, computed, getOwner } = Ember;
+const { Controller, observer, getOwner } = Ember;
 
 export default Controller.extend({
   queryParams: ['slide'],
   slide: null,
 
-  /*slideQueryParamChanged: observer('slide', function() {
+  slideQueryParamChanged: observer('slide', function() {
     let slide = parseInt(this.get('slide'));
+    debugger;
     this.set('slideNumber', slide);
 
     let owner = getOwner(this);
@@ -25,7 +26,7 @@ export default Controller.extend({
     let nextSlide = slide + 1;
     let hasNextSlide = hasComponent(owner, this.getSlideComponentName(nextSlide));
     this.set('nextSlide', hasNextSlide ? nextSlide : null);
-  }),*/
+  }),
 
   getSlideComponentName(slide) {
     return `slide-${slide}`;
