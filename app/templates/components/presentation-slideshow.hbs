@@ -1,0 +1,31 @@
+<div class="slideshow">
+  {{#if slide}}
+    {{#if hasCurrentSlideComponent}}
+      {{#if previousSlide}}
+        <div class="previous">
+          {{#paper-button iconButton=true raised=true onClick=(action "previousSlide")}}
+            {{paper-icon "navigate_before"}}
+          {{/paper-button}}
+        </div>
+      {{/if}}
+
+      {{#liquid-bind currentSlideComponent class="slide-wrapper"}}
+        {{component currentSlideComponent class="slide-component"}}
+      {{/liquid-bind}}
+
+      {{#if nextSlide}}
+        <div class="next">
+          {{#paper-button iconButton=true raised=true onClick=(action "nextSlide")}}
+            {{paper-icon "navigate_next"}}
+          {{/paper-button}}
+        </div>
+      {{/if}}
+    {{else}}
+      Slide not found.
+    {{/if}}
+  {{else}}
+    {{#paper-button raised=true onClick=(action "startPresentation")}}
+      Start presentation
+    {{/paper-button}}
+  {{/if}}
+</div>
