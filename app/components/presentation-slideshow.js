@@ -11,7 +11,7 @@ export default Component.extend({
   },
 
   didRender() {
-    this.$().focus();
+    this.$().attr({ tabindex: 1 }), this.$().focus();
   },
 
   setupSlides() {
@@ -45,8 +45,21 @@ export default Component.extend({
   },
 
   gotoNextSlide() {
-    this.set('slide', this.get('nextSlide'));
-    this.setupSlides();
+    let previousSlide = this.get('slide');
+    let slide = this.get('nextSlide');
+    this.set('slide', slide);
+    if(slide) {
+      this.setupSlides();
+    } else if(previousSlide) {
+      let owner = getOwner(this);
+      let currentSlideComponentName = 'slide-end';
+      let hasCurrentSlideComponent = hasComponent(owner, currentSlideComponentName);
+      this.set('hasCurrentSlideComponent', hasCurrentSlideComponent);
+      this.set('currentSlideComponent', hasCurrentSlideComponent ? currentSlideComponentName : null);
+
+      let hasPreviousSlide = hasComponent(owner, this.getSlideComponentName(previousSlide));
+      this.set('previousSlide', hasPreviousSlide ? previousSlide : null);
+    }
   },
 
   getSlideComponentName(slide) {
@@ -54,7 +67,11 @@ export default Component.extend({
   },
 
   keyDown(event) {
-    console.log(event);
+    if(event.keyCode == 37) {
+      this.gotoPreviousSlide();
+    } else if(event.keyCode == 39) {
+      this.gotoNextSlide();
+    }
   },
 
   actions: {

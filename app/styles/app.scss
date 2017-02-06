@@ -12,6 +12,12 @@
   width: 100%;
   z-index: 1;
 
+  .play-button{
+    color: ghostwhite;
+    cursor: pointer;
+    z-index: 10;
+  }
+
   .previous{
     position: absolute;
     left: 20px;
@@ -32,8 +38,16 @@
     height: 100%;
   }
 
+  md-card{
+    height: calc(100% - 16px);
+
+    md-card-content{
+      height: 100%;
+    }
+  }
+
   .slide-component{
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
   }
