@@ -31,7 +31,7 @@ export default Component.extend({
 
       let nextSlide = slide + 1;
       let hasNextSlide = hasComponent(owner, this.getSlideComponentName(nextSlide));
-      this.set('nextSlide', hasNextSlide ? nextSlide : null);
+      this.set('nextSlide', hasNextSlide ? nextSlide : 'slide-end');
     }
   },
 
@@ -55,6 +55,7 @@ export default Component.extend({
       this.set('slide', slide);
       this.setupSlides();
     } else if(nextSlide) {
+      // todo if next slide === 'slide-end'
       this.set('slide', null);
       let owner = getOwner(this);
       let currentSlideComponentName = null;
