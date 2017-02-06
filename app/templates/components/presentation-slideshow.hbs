@@ -10,11 +10,7 @@
       {{/if}}
 
       {{#liquid-bind currentSlideComponent class="slide-wrapper"}}
-        {{#paper-card}}
-          {{#paper-card-content}}
-            {{component currentSlideComponent class="slide-component"}}
-          {{/paper-card-content}}
-        {{/paper-card}}
+        {{component currentSlideComponent class="slide-component"}}
       {{/liquid-bind}}
 
       {{#if nextSlide}}
@@ -28,8 +24,28 @@
       Slide not found.
     {{/if}}
   {{else}}
-    <div class="layout layout-fill layout-align-center-center">
-      {{paper-icon "play_arrow" size=72 click=(action "startPresentation") class="play-button"}}
-    </div>
+    {{#if hasCurrentSlideComponent}}
+      {{#if previousSlide}}
+        <div class="previous">
+          {{#paper-button iconButton=true raised=true onClick=(action "previousSlide")}}
+            {{paper-icon "navigate_before"}}
+          {{/paper-button}}
+        </div>
+      {{/if}}
+
+      {{component currentSlideComponent startPresentation=(action "startPresentation") class="slide-component"}}
+
+      {{#if nextSlide}}
+        <div class="next">
+          {{#paper-button iconButton=true raised=true onClick=(action "nextSlide")}}
+            {{paper-icon "navigate_next"}}
+          {{/paper-button}}
+        </div>
+      {{/if}}
+    {{else}}
+      <div class="layout layout-fill layout-align-center-center">
+        {{paper-icon "play_arrow" size=72 click=(action "startPresentation") class="center-button"}}
+      </div>
+    {{/if}}
   {{/if}}
 </div>

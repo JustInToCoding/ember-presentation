@@ -11,7 +11,8 @@ export default Component.extend({
   },
 
   didRender() {
-    this.$().attr({ tabindex: 1 }), this.$().focus();
+    this.$().attr({ tabindex: 1 });
+    this.$().focus();
   },
 
   setupSlides() {
@@ -39,18 +40,44 @@ export default Component.extend({
     this.setupSlides();
   },
 
+  endPresentation(){
+    this.set('slide', null);
+    this.set('hasCurrentSlideComponent', false);
+    this.set('currentSlideComponent', null);
+    this.set('nextSlide', null);
+    this.set('previousSlide', null);
+  },
+
   gotoPreviousSlide() {
-    this.set('slide', this.get('previousSlide'));
-    this.setupSlides();
+    let nextSlide = this.get('slide');
+    let slide = this.get('previousSlide');
+    if(slide) {
+      this.set('slide', slide);
+      this.setupSlides();
+    } else if(nextSlide) {
+      this.set('slide', null);
+      let owner = getOwner(this);
+      let currentSlideComponentName = null;
+      let hasCurrentSlideComponent = false;
+      this.set('hasCurrentSlideComponent', hasCurrentSlideComponent);
+      this.set('currentSlideComponent', hasCurrentSlideComponent ? currentSlideComponentName : null);
+
+      let hasNextSlide = hasComponent(owner, this.getSlideComponentName(nextSlide));
+      this.set('nextSlide', hasNextSlide ? nextSlide : null);
+    } else {
+      this.set('slide', null);
+    }
   },
 
   gotoNextSlide() {
     let previousSlide = this.get('slide');
     let slide = this.get('nextSlide');
-    this.set('slide', slide);
+
     if(slide) {
+      this.set('slide', slide);
       this.setupSlides();
     } else if(previousSlide) {
+      this.set('slide', null);
       let owner = getOwner(this);
       let currentSlideComponentName = 'slide-end';
       let hasCurrentSlideComponent = hasComponent(owner, currentSlideComponentName);
@@ -59,6 +86,8 @@ export default Component.extend({
 
       let hasPreviousSlide = hasComponent(owner, this.getSlideComponentName(previousSlide));
       this.set('previousSlide', hasPreviousSlide ? previousSlide : null);
+    } else {
+      this.set('slide', null);
     }
   },
 
@@ -67,10 +96,16 @@ export default Component.extend({
   },
 
   keyDown(event) {
-    if(event.keyCode == 37) {
+    console.log(event.keyCode);
+    if(event.keyCode === 37) { // Left arrow
       this.gotoPreviousSlide();
-    } else if(event.keyCode == 39) {
+    } else if(event.keyCode === 39) { // Right arrow
       this.gotoNextSlide();
+    } else if(event.keyCode === 32) { // Space bar
+      // TODO: start automatic slideshow?
+      // this.startPresentation();
+    } else if(event.keyCode === 27) { // ESC
+      this.endPresentation();
     }
   },
 
