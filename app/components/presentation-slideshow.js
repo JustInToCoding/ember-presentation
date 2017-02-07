@@ -6,6 +6,15 @@ const { Component, getOwner } = Ember;
 export default Component.extend({
   startSlide: 1,
 
+  init() {
+    this._super(...arguments);
+    let owner = getOwner(this);
+    let currentSlideComponentName = this.getSlideComponentName('start');
+    let hasCurrentSlideComponent = hasComponent(owner, currentSlideComponentName);
+    this.set('hasCurrentSlideComponent', hasCurrentSlideComponent);
+    this.set('currentSlideComponent', hasCurrentSlideComponent ? currentSlideComponentName : null);
+  },
+
   didReceiveAttrs() {
     this.setupSlides();
   },
@@ -27,11 +36,11 @@ export default Component.extend({
 
       let previousSlide = slide - 1;
       let hasPreviousSlide = hasComponent(owner, this.getSlideComponentName(previousSlide));
-      this.set('previousSlide', hasPreviousSlide ? previousSlide : null);
+      this.set('previousSlide', hasPreviousSlide ? previousSlide :  hasComponent(owner, this.getSlideComponentName('start')) ? 'start' : null);
 
       let nextSlide = slide + 1;
       let hasNextSlide = hasComponent(owner, this.getSlideComponentName(nextSlide));
-      this.set('nextSlide', hasNextSlide ? nextSlide : 'slide-end');
+      this.set('nextSlide', hasNextSlide ? nextSlide : hasComponent(owner, this.getSlideComponentName('end')) ? 'end' : null);
     }
   },
 
@@ -40,10 +49,17 @@ export default Component.extend({
     this.setupSlides();
   },
 
-  endPresentation(){
+  setStartSlide() {
+    let owner = getOwner(this);
+    let currentSlideComponentName = this.getSlideComponentName('start');
+    let hasCurrentSlideComponent = hasComponent(owner, currentSlideComponentName);
     this.set('slide', null);
-    this.set('hasCurrentSlideComponent', false);
-    this.set('currentSlideComponent', null);
+    this.set('hasCurrentSlideComponent', hasCurrentSlideComponent);
+    this.set('currentSlideComponent', hasCurrentSlideComponent ? currentSlideComponentName : null);
+  },
+
+  endPresentation(){
+    this.setStartSlide();
     this.set('nextSlide', null);
     this.set('previousSlide', null);
   },
@@ -51,44 +67,46 @@ export default Component.extend({
   gotoPreviousSlide() {
     let nextSlide = this.get('slide');
     let slide = this.get('previousSlide');
-    if(slide) {
+    if(slide === 'start') {
+      this.setStartSlide();
+      this.set('previousSlide', null);
+      this.set('nextSlide', nextSlide);
+    } else if(slide) { // There is a previousSlide so set as current slide
       this.set('slide', slide);
       this.setupSlides();
     } else if(nextSlide) {
-      // todo if next slide === 'slide-end'
       this.set('slide', null);
-      let owner = getOwner(this);
-      let currentSlideComponentName = null;
-      let hasCurrentSlideComponent = false;
-      this.set('hasCurrentSlideComponent', hasCurrentSlideComponent);
-      this.set('currentSlideComponent', hasCurrentSlideComponent ? currentSlideComponentName : null);
+      this.set('hasCurrentSlideComponent', false);
+      this.set('currentSlideComponent', null);
 
-      let hasNextSlide = hasComponent(owner, this.getSlideComponentName(nextSlide));
-      this.set('nextSlide', hasNextSlide ? nextSlide : null);
-    } else {
-      this.set('slide', null);
+      this.set('previousSlide', null);
+      this.set('nextSlide', nextSlide);
+    } else { // slide = null & previousSlide = null
+      return;
     }
   },
 
   gotoNextSlide() {
     let previousSlide = this.get('slide');
     let slide = this.get('nextSlide');
+    let endSlideComponentName = this.getSlideComponentName('end');
 
-    if(slide) {
-      this.set('slide', slide);
-      this.setupSlides();
-    } else if(previousSlide) {
+    if(slide === 'end') { // If goto slide end
       this.set('slide', null);
       let owner = getOwner(this);
-      let currentSlideComponentName = 'slide-end';
-      let hasCurrentSlideComponent = hasComponent(owner, currentSlideComponentName);
-      this.set('hasCurrentSlideComponent', hasCurrentSlideComponent);
-      this.set('currentSlideComponent', hasCurrentSlideComponent ? currentSlideComponentName : null);
 
-      let hasPreviousSlide = hasComponent(owner, this.getSlideComponentName(previousSlide));
-      this.set('previousSlide', hasPreviousSlide ? previousSlide : null);
+      let hasCurrentSlideComponent = hasComponent(owner, endSlideComponentName);
+      this.set('hasCurrentSlideComponent', hasCurrentSlideComponent);
+      this.set('currentSlideComponent', hasCurrentSlideComponent ? endSlideComponentName : null);
+
+      this.set('previousSlide', previousSlide);
+      this.set('nextSlide', null);
+
+    } else if(slide) {
+      this.set('slide', slide);
+      this.setupSlides();
     } else {
-      this.set('slide', null);
+      return;
     }
   },
 
@@ -113,6 +131,9 @@ export default Component.extend({
   actions: {
     startPresentation() {
       this.startPresentation();
+    },
+    endPresentation() {
+      this.endPresentation();
     },
     previousSlide() {
       this.gotoPreviousSlide();

@@ -33,7 +33,7 @@
         </div>
       {{/if}}
 
-      {{component currentSlideComponent startPresentation=(action "startPresentation") class="slide-component"}}
+      {{component currentSlideComponent startPresentation=(action "startPresentation") restartPresentation=(action "endPresentation") class="slide-component"}}
 
       {{#if nextSlide}}
         <div class="next">
@@ -43,9 +43,7 @@
         </div>
       {{/if}}
     {{else}}
-      <div class="layout layout-fill layout-align-center-center">
-        {{paper-icon "play_arrow" size=72 click=(action "startPresentation") class="center-button"}}
-      </div>
+      Start slide component not found.
     {{/if}}
   {{/if}}
 </div>
