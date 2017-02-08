@@ -12,6 +12,7 @@ You will need the following things properly installed on your computer.
 * [Bower](https://bower.io/)
 * [Ember CLI](https://ember-cli.com/)
 * [PhantomJS](http://phantomjs.org/)
+* [Cordova](https://cordova.apache.org/docs/en/latest/guide/cli/index.html#installing-the-cordova-cli)
 
 ## Installation
 
@@ -19,6 +20,7 @@ You will need the following things properly installed on your computer.
 * `cd ember-presentation`
 * `npm install`
 * `bower install`
+* `ember cdv:prepare`
 
 ## Running / Development
 
@@ -47,6 +49,8 @@ Specify what it takes to deploy your app.
 
 * [ember.js](http://emberjs.com/)
 * [ember-cli](https://ember-cli.com/)
+* [ember-cordova](http://embercordova.com/)
+* [Andoird Platform Guide](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html)
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
