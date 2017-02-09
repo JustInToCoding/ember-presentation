@@ -3,17 +3,23 @@
     <div class="slide-content layout-column">
       <div class="layout-row layout-align-center-center">
         <div class="slide-title">
-          Semver
+          Model
         </div>
       </div>
+      <br />
+      <br />
       <div class="layout-row layout-align-center-center">
-        <ul class="slide-unordered-list">
-          <li>Semantic Versioning</li>
-          <li>MAJOR.MINOR.PATCH</li>
-          <li>Deprecations</li>
-          <li>Canary, Beta, Stable</li>
-          <li>LTS releases (op het moment 2.8.3)</li>
-        </ul>
+        {{ivy-codemirror
+          value=modelCode
+          options=(hash
+            lineNumbers=true
+            theme="blackboard"
+            mode="javascript"
+            smartIndent=true
+            tabSize=2
+            readOnly=false
+            lineWrapping=false)
+          }}
       </div>
     </div>
   {{/paper-card-content}}

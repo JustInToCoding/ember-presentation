@@ -1,0 +1,26 @@
+{{#paper-card}}
+  {{#paper-card-content}}
+    <div class="slide-content layout-column">
+      <div class="layout-row layout-align-center-center">
+        <div class="slide-title">
+          Route (handler)
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="layout-row layout-align-center-center">
+        {{ivy-codemirror
+          value=routeHandlerCode
+          options=(hash
+            lineNumbers=true
+            theme="blackboard"
+            mode="javascript"
+            smartIndent=true
+            tabSize=2
+            readOnly=false
+            lineWrapping=false)
+          }}
+      </div>
+    </div>
+  {{/paper-card-content}}
+{{/paper-card}}

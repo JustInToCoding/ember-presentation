@@ -115,7 +115,6 @@ export default Component.extend({
   },
 
   keyDown(event) {
-    console.log(event.keyCode);
     if(event.keyCode === 37) { // Left arrow
       this.gotoPreviousSlide();
     } else if(event.keyCode === 39) { // Right arrow

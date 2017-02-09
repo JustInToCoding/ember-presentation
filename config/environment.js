@@ -1,5 +1,8 @@
 /* jshint node: true */
 
+var fs = require('fs');
+var path = require('path');
+
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'ember-presentation',
@@ -20,6 +23,12 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      routerCode: fs.readFileSync(path.join(__dirname, '../examples/router.js'), { encoding: 'utf-8' }),
+      routeHandlerCode: fs.readFileSync(path.join(__dirname, '../examples/route.js'), { encoding: 'utf-8' }),
+      modelCode: fs.readFileSync(path.join(__dirname, '../app/models/report.js'), { encoding: 'utf-8' }),
+      templateCode: fs.readFileSync(path.join(__dirname, '../examples/template.hbs'), { encoding: 'utf-8' }),
+      componentCode: fs.readFileSync(path.join(__dirname, '../app/components/show-report.js'), { encoding: 'utf-8' }),
+      componentTemplateCode: fs.readFileSync(path.join(__dirname, '../app/templates/components/show-report.hbs'), { encoding: 'utf-8' })
     }
   };
 

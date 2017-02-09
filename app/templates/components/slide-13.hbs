@@ -1,0 +1,43 @@
+{{#paper-card}}
+  {{#paper-card-content}}
+    <div class="slide-content layout-column">
+      <div class="layout-row layout-align-center-center">
+        <div class="slide-title">
+          Component
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="layout-column layout-align-center-center">
+        components/show-report.js
+        {{ivy-codemirror
+          value=componentCode
+          options=(hash
+            lineNumbers=true
+            theme="blackboard"
+            mode="javascript"
+            smartIndent=true
+            tabSize=2
+            readOnly=false
+            lineWrapping=false)
+          }}
+          <br />
+          templates/components/show-report.hbs
+          {{ivy-codemirror
+          value=componentTemplateCode
+          options=(hash
+            lineNumbers=true
+            theme="blackboard"
+            mode="handlebars"
+            smartIndent=true
+            tabSize=2
+            readOnly=false
+            lineWrapping=false)
+          }}
+          <br />
+          Rendered
+          {{show-report report=report}}
+      </div>
+    </div>
+  {{/paper-card-content}}
+{{/paper-card}}

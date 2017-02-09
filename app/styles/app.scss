@@ -27,6 +27,18 @@
     height: 100%;
     width: 100%;
     padding: 0 45px;
+
+    .slide-image{
+      position: relative;
+      height: 400px;
+      img{
+        position: relative;
+        height: auto;
+        width: auto;
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
   }
 
   .previous{
@@ -118,4 +130,9 @@
     height:100%;
     max-width: 100%;
   }
+}
+
+.CodeMirror {
+  height: auto;
+  font-size:1.4em;
 }
