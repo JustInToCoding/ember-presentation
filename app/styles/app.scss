@@ -81,16 +81,22 @@
 }
 
 .slide-title {
-  font-size: 4em;
+  font-size: 2em;
 }
 
-@media (min-width: 1100px) {
+@media (min-height: 700px) {
+  .slide-title {
+    font-size: 4em;
+  }
+}
+
+@media (min-height: 700px) and (min-width: 1100px) {
   .slide-title {
     font-size: 6em;
   }
 }
 
-@media (min-width: 1400px) {
+@media (min-height: 700px) and (min-width: 1400px) {
   .slide-title {
     font-size: 8em;
   }
@@ -134,5 +140,11 @@
 
 .CodeMirror {
   height: auto;
-  font-size:1.4em;
+  font-size:0.9em;
+}
+
+@media (min-height: 700px) {
+  .CodeMirror {
+    font-size:1.1em;
+  }
 }

@@ -1,3 +1,8 @@
-<h1>Report title: {{report.title}}</h1>
+<h3>Report title: {{report.title}}</h3>
 <br />
-{{paper-input label="title" value=title onChange=(action (mut title))}}{{#paper-button raised=true onClick=(action "setTitle" title)}}Change title{{/paper-button}}
+{{paper-input label="title" value=title
+  onChange=(action (mut title))}}
+{{#paper-button primary=true raised=true
+  onClick=(action "setTitle" title)}}
+  Change title
+{{/paper-button}}

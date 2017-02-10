@@ -21,7 +21,6 @@ export default Component.extend({
 
   didRender() {
     this.$().attr({ tabindex: 1 });
-    this.$().focus();
   },
 
   setupSlides() {

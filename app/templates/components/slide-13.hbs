@@ -7,36 +7,39 @@
         </div>
       </div>
       <br />
-      <br />
-      <div class="layout-column layout-align-center-center">
-        components/show-report.js
-        {{ivy-codemirror
-          value=componentCode
-          options=(hash
-            lineNumbers=true
-            theme="blackboard"
-            mode="javascript"
-            smartIndent=true
-            tabSize=2
-            readOnly=false
-            lineWrapping=false)
-          }}
-          <br />
-          templates/components/show-report.hbs
+      <div class="layout-row layout-align-center-top">
+        <div class="flex">
+          <b>components/show-report.js</b>
           {{ivy-codemirror
-          value=componentTemplateCode
-          options=(hash
-            lineNumbers=true
-            theme="blackboard"
-            mode="handlebars"
-            smartIndent=true
-            tabSize=2
-            readOnly=false
-            lineWrapping=false)
+            value=componentCode
+            options=(hash
+              lineNumbers=true
+              theme="blackboard"
+              mode="javascript"
+              smartIndent=true
+              tabSize=2
+              readOnly=false
+              lineWrapping=false)
+            }}
+        </div>
+        <div class="flex-5"></div>
+        <div class="flex">
+          <b>templates/components/show-report.hbs</b>
+          {{ivy-codemirror
+            value=componentTemplateCode
+            options=(hash
+              lineNumbers=true
+              theme="blackboard"
+              mode="handlebars"
+              smartIndent=true
+              tabSize=2
+              readOnly=false
+              lineWrapping=false)
           }}
-          <br />
-          Rendered
-          {{show-report report=report}}
+        </div>
+      </div>
+      <div class="layout-column layout-align-center-center">
+        {{show-report report=report}}
       </div>
     </div>
   {{/paper-card-content}}
